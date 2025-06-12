@@ -134,47 +134,13 @@ signal-cli -u +15551234567 daemon --socket /run/user/1000/signal-cli.socket
     curl -H "Authorization: Token YOUR_HTTP_AUTH_TOKEN" "http://localhost:8080/cmd/status"
     ```
 
-## Examples
+## Example
 
-### Configuration:
+There is a config_sample.yaml file with some basic configuration. Copy it and start customizing.
 
-```yaml
-commands:
-  hostname:
-    command: hostname
-    args: []
-  df:
-    command: df -h %s
-    args: ["path"]
-  free:
-    command: free -m
-    args: []
-  reboot:
-    command: sudo reboot
-    args: []
 ```
-
-### Telegram:
-
-Send `/hostname` to the bot. The bot will reply with the hostname of the Raspberry Pi.
-
-### Signal:
-
-Send `/df /` to the bot. The bot will reply with the disk space usage of the root directory.
-
-### HTTPD:
-
-```bash
-curl -H "Authorization: Token YOUR_HTTP_AUTH_TOKEN" "http://localhost:8080/cmd/free"
+cp config_sample.yaml config.yaml
 ```
-
-The server will respond with the output of the `free -m` command.
-
-```bash
-curl -H "Authorization: Token YOUR_HTTP_AUTH_TOKEN" "http://localhost:8080/cmd/df?path=/"
-```
-
-The server will respond with the output of the `df -h /` command.
 
 ## Security Considerations
 
