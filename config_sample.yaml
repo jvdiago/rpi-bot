@@ -1,0 +1,21 @@
+commands:
+  status:
+    command: uptime
+  disk:
+    command: df -h
+  services:
+    args:
+      - service
+    command: systemctl status %s
+signal:
+  sources:
+    - "+YYXXXXXXXXXX"
+  socket: "/tmp/sc.sock"
+telegram:
+  debug: false
+  apiToken: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+provider: telegram
+httpd:
+  enabled: true
+  addr: ":8080"
+  authToken: "1234"
