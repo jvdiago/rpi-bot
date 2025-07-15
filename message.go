@@ -12,7 +12,7 @@ func MessagingFactory(cfg *Config) (messaging.MessageClient, error) {
 	var sr messaging.MessageClient
 
 	if cfg.Provider == "telegram" {
-		telegramApitoken, exists := GetSecret("TELEGRAM_APITOKEN", cfg.Telegram.apiToken)
+		telegramApitoken, exists := GetSecret("TELEGRAM_APITOKEN", cfg.Telegram.ApiToken)
 		if !exists {
 			return sr, fmt.Errorf("ENV var `TELEGRAM_APITOKEN` not found")
 		}

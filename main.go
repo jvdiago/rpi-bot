@@ -27,7 +27,7 @@ type Config struct {
 
 type TelegramConfig struct {
 	Debug    bool   `yaml:"debug"`
-	apiToken string `yaml:"apiToken"`
+	ApiToken string `yaml:"apiToken"`
 }
 type SignalConfig struct {
 	Sources []string `yaml:"sources"`
