@@ -28,7 +28,7 @@ func setupMux(cfg *Config, commandHandler *httpCommandHandler) http.Handler {
 
 	mux.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("ok"))
+		_, _ = w.Write([]byte("ok"))
 	})
 	cmdHandler := authMiddleware(cfg.Httpd.AuthToken, http.HandlerFunc(commandHandler.ServeHTTP))
 	mux.Handle("/cmd/", cmdHandler)
@@ -114,6 +114,9 @@ func (h *httpCommandHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 	}
 	w.Header().Set("Content-Type", "text/plain")
-	//w.WriteHeader(http.StatusOK)
-	fmt.Fprint(w, output)
+	_, err = fmt.Fprint(w, output)
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 }

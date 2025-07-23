@@ -163,7 +163,11 @@ func (s *signalReceiver) messageReceiver(ctx context.Context) {
 	go func() {
 		<-ctx.Done()
 		log.Println("messageReceiver: context done, closing connection")
-		s.conn.Close()
+		err := s.conn.Close()
+		if err != nil {
+			log.Println(err)
+		}
+
 	}()
 	defer close(s.ch)
 

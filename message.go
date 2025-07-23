@@ -24,7 +24,7 @@ func MessagingFactory(cfg *Config) (messaging.MessageClient, error) {
 	if cfg.Provider == "" { // No messaging provider
 		return sr, nil
 	}
-	return sr, fmt.Errorf("Provider %s not supportted", cfg.Provider)
+	return sr, fmt.Errorf("provider %s not supportted", cfg.Provider)
 }
 
 func MessagingPoller(

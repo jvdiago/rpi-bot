@@ -13,7 +13,7 @@ import (
 func TestAuthMiddleware(t *testing.T) {
 	mockNextHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("ok"))
+		w.Write([]byte("ok")) //nolint:all
 	})
 
 	tests := []struct {
@@ -95,9 +95,10 @@ func TestAuthMiddleware(t *testing.T) {
 			assert.Equal(t, tt.expectedStatus, rr.Code, "HTTP status code mismatch")
 			assert.Equal(t, tt.expectNextCalled, nextCalled, "Next handler called state mismatch")
 
-			if tt.expectedStatus == http.StatusUnauthorized {
+			switch tt.expectedStatus {
+			case http.StatusUnauthorized:
 				assert.Contains(t, rr.Body.String(), "unauthorized", "Error message mismatch for unauthorized")
-			} else if tt.expectedStatus == http.StatusOK {
+			case http.StatusOK:
 				assert.Equal(t, "ok", rr.Body.String(), "Response body mismatch for OK")
 			}
 		})
